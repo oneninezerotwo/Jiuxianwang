@@ -3,28 +3,28 @@
     <div class="head clearfix">
       <a class="back" href="javascript:void(0)" @click="togo"></a>
       <h2 class="headTitle" v-text="setname()"></h2>
-      <a class="navBar" href="javascript:;" @click="iashow"></a>
+      <a class="navBar" href="avascript:void(0)" @click="iashow"></a>
     </div>
     <ul class="nav" v-show="show">
       <li class="home">
         <i></i>
         <span>首页</span>
-        <a id="daohang_home" href="https://m.jiuxian.com/?from=topNav"></a>
+        <a id="daohang_home" href="avascript:void(0)"></a>
       </li>
       <li class="topsearch">
         <i></i>
         <span>搜索</span>
-        <a id="daohang_search" href="https://m.jiuxian.com/m_v1/search?from=topNav"></a>
+        <a id="daohang_search" href="avascript:void(0)"></a>
       </li>
       <li class="cart">
         <i></i>
         <span>购物车</span>
-        <a id="daohang_gouwuche" href="https://mcart.jiuxian.com/cart/info?from=topNav"></a>
+        <a id="daohang_gouwuche" href="avascript:void(0)"></a>
       </li>
       <li class="commuser">
         <i></i>
         <span>我的酒仙</span>
-        <a id="daohang_wodejiuxian" href="https://mmember.jiuxian.com/user?from=topNav"></a>
+        <a id="daohang_wodejiuxian" href="avascript:void(0)"></a>
       </li>
     </ul>
   </div>

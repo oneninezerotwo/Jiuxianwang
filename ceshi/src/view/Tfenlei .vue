@@ -87,7 +87,7 @@
           <a class="back sIcon" id="backList" href="javascript:;" @click="isox()"></a>
           <div class="searchInput">
             <em class="sIcon"></em>
-            <input id="search_input" type="search" value placeholder="畅饮618：每满199减20元">
+            <input id="search_input" type="search" value placeholder="畅饮618：每满199减20元" ref="focusss">
             <span class="sIcon" id="search_clear" style="display: none;"></span>
           </div>
           <a class="searchBtn" id="searchBtn" href="javascript:;">搜索</a>
@@ -148,12 +148,24 @@ export default {
     return {
       value: "",
       isok: true
-    };
+    }
+  },
+  created(){
+         if(this.isok==false){
+            this.focuss()
+         }
   },
   methods: {
     isox() {
       this.isok = !this.isok;
-    }
+      if(this.isok==false){
+        this.$nextTick(()=>{   //正确写法
+       this.$refs.focusss.focus();
+      //  console.log(this.$refs.focusss)
+      })
+      }
+    },
+    
   }
 };
 </script>

@@ -8,7 +8,7 @@
             <Tmaint />
             <Tmain3 />
            <Tfooter />
-           <div>
+           <div v-show="bool" @click="goTop">
                <div class="toTop" id="toTop" style="display: block;"><i class="jx-sprite-icon"></i></div>
            </div>
     </div>
@@ -25,7 +25,10 @@ import Tmain3 from '../components/Thomes/Tmain3'
 export default {
     data(){
         return{
-            
+            Theigth:0,//滚动的值
+            scrollTo:500,//判断距离
+            // scrollTop:0,//滚动距离头部的距离
+            bool:false
         }
     },
     created(){
@@ -44,13 +47,38 @@ export default {
     //  mounted(){
     //         window.addEventListener('scroll',this.handleScroll)
     //     },
-    //     // methods:{
-        //     handleScroll () {
-        //         let herderHei = (this.$refs.Thome).scrollHeight//先获取盒子的高度
-                
-        //         this.$store.state.theight = herderHei-42
-        //     },
-        // }
+        methods:{
+    //         handleScroll () {
+    //             // let herderHei = (this.$refs.Thome).scrollHeight//先获取盒子的高度
+    //               let documenhei = document.documentElement.scrollTop//获取滚动的高度
+    //             // this.$store.state.theight = herderHei-42
+    //             this.Theigth =documenhei
+    //         },
+            goTop() {
+                let timer =  setInterval(() => {
+                    if (this.Theigth > 0) {
+                    this.Theigth -= 100;
+                    window.scrollTo(0, this.Theigth);
+                    // console.log(22)
+                    } else {
+                         clearInterval(timer);
+                    }
+                }, 30);
+        }
+        },
+        mounted(){
+               //滚动事件
+                  window.onscroll = ()=>{
+                    this.Theigth = window.scrollY;//赋予滚动的距离
+                    //变量scrollTop是滚动条滚动时，距离顶部的距离
+                    // this.scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+                    if(this.Theigth>=this.scrollTo){
+                        this.bool= true
+                    }else{
+                        this.bool=false
+                    }
+            }
+        }
 }
 </script>
 

@@ -29,7 +29,9 @@ export default {
         },
         methods:{
             handleScroll () {
-                let herderHei = (this.$refs.haha).scrollHeight//先获取盒子的高度
+                let herderHei = (this.$refs.haha).offsetHeight//先获取盒子的高度
+                // console.log(herderHei);
+                
                 let documenhei = document.documentElement.scrollTop//获取滚动的高度
                 if(documenhei>=herderHei){
                         this.isok = true
