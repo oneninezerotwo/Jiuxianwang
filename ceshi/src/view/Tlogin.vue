@@ -3,7 +3,7 @@
     <Therder/>
     <div>
       <section class="login">
-        <input type="hidden" id="basePath" value="https://m.jiuxian.com/m_v1">
+        <input type="hidden" id="basePath" value="">
         <ul class="tab">
           <li class="tab1 on">
             <p>账号登录</p>
@@ -16,24 +16,23 @@
         </ul>
         <div class="content">
           <div class="content1" style="display: block;">
-            <form autocomplete="off">
+            <form autocomplete="">
               <div class="user">
                 <i></i>
-                <input type="text" name="user_name" id="user_name" value placeholder="用户名/邮箱/手机号">
-
+                <input type="text" name="user_name" id="user_name"  placeholder="用户名/邮箱/手机号" v-model="name" ref="usn">
                 <p class="tip empty" id="err_msg">
                   <i></i>请输入用户名/邮箱/手机号
                 </p>
               </div>
               <div class="pwd">
                 <i></i>
-                <input type="password" name="password" id="pass" placeholder="密码">
+                <input type="password" name="password" id="pass" placeholder="密码" v-model="pasw" ref="psw">
 
                 <p class="tip">
                   <i></i>请输入密码
                 </p>
               </div>
-              <a class="btn" href="javascript:void(0)" id="subbtn1">立即登录</a>
+              <a class="btn" href="javascript:void(0)" id="subbtn1" @click="setcook()">立即登录</a>
 
               <div class="serve clearfix">
                 <a class="regist" href="javascript:;">免费注册</a>
@@ -83,8 +82,8 @@
                   <i>59</i>秒后重新获取
                 </a>
               </div>
-              <a class="btn" href="#" id="subbtn2">立即登录</a>
-
+              <a class="btn" href="#" id="subbtn2" @click="setcook">立即登录</a>
+              
               <div class="serve clearfix">
                 <a class="regist" href="javascript:;">免费注册</a>
                 <a class="getpwd" href="javascript:;">找回密码</a>
@@ -117,21 +116,24 @@ export default {
     return {
       title: "用户登陆",
       isok:false,
-
+      name:'',
+      pasw:''
     };
   },
   created() {
     this.$store.state.title = this.title;
+          this.name=''
+          this.pasw=''
   },
   components: {
     Therder
   },
   methods:{
-    //   togo(){
-    //       this.$router.go(-1)
-    //   }
         setcook(){
-            
+            this.$tcookie.setCookie('name',this.name,7)
+             this.$tcookie.setCookie('pasw',this.pasw,7)
+            //  console.log(111)
+             this.$router.go(-1)
         }
   }
 };
@@ -388,5 +390,11 @@ img {
 }
 .choose .alipay {
   background-position: -156px -99px;
+}
+#user_name{
+  background: white;
+}
+#pass{
+  background: white;
 }
 </style>

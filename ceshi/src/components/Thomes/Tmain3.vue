@@ -10,8 +10,8 @@
           <div class="swiper-slide">
             <div class="content-slide" id="__home_baokuan">
               <ul class="proItem clearfix" id="zxList">
-                <li v-for="(item,index) in arr" :key="index">
-                  <a href="https://m.jiuxian.com/m_v1/goods/view/49255">
+                <li v-for="(item,index) in arr" :key="index" @click="Toxianqin(item.commonProductInfo.pid)">
+                  <a href="javascript:;">
                     <span class="tagList">
                       <i 
                       v-for="(a,indexs) in item.promo" :key="indexs"
@@ -71,31 +71,13 @@ export default {
         })
         this.$lod.close();
         this.arr = data.promoList
-                // console.log(this.arr)
+                console.log(this.arr)
     },
     mounted(){
             window.addEventListener('scroll',this.handleScroll)
         },
     methods:{
-          // async  handleScroll () {
-          //          let documenhei =await document.documentElement.scrollTop//获取滚动的高度
-          //          let  herderHei = await this.$store.state.theight  //盒子的高度
-          //            console.log('第一次'+documenhei,herderHei)
-          //            if(documenhei=herderHei){
-          //                this.$lod.open({
-          //               text: '加载中...',
-          //               spinnerType: 'fading-circle',
-          //               });
-          //           let {data} = await this.$axios.get('api/m_v1/statics/getzx.htm?topicId=1165&pageNum=2',{
-          //           })
-          //           this.$lod.close();
-          //           this.arr = data.promoList
-          //           console.log('第二次'+documenhei,herderHei)
-          //            }else{
-          //                alert('hhaha')
-          //            }
-                
-          //   },
+          
         async  addarr(){
                 this.$lod.open({
                 text: '加载中...',
@@ -112,8 +94,15 @@ export default {
                 this.arr = [...this.arr,...data.promoList]
                         console.log(this.arr)
     },
+
+
           
-          
+          Toxianqin(id){
+                this.$router.push({
+                    path:`/Txianqingye?id=${id}`,
+                    // query:'555'
+                })
+          }      
         }
 }
 </script>

@@ -72,7 +72,7 @@
                       </a>
                     </h4>
                     <p>
-                      <span>¥{{item.price}}</span>
+                      <span>¥{{item.zonjia}}</span>
                     </p>
                     <div class="rsCartItem">
                       <div class="comAmount">
@@ -132,47 +132,63 @@ export default {
                     show:true,
                     title:'【老酒特卖】45°西凤金窖500ml(2012-2013年）',
                     img:'https://img07.jiuxian.com/2017/0227/31f189c611994d0984c88620a059b6b84.jpg',
-                    price:'656',
+                    price:'3',
                     num:'1',
                     rennitiao:'任你挑',
                     zaigou:'再购6件立享【288.00元任选6件】',
-                    xiaoshigou:'限时抢购'
+                    xiaoshigou:'限时抢购',
+                    zonjia:'3'
                 },{
                     show:true,
                     title:'芝华士12年威士忌500ml +百龄坛特醇500ml 双雄套装',
                     img:'https://img08.jiuxian.com/2019/0614/272e1d04659d4619b11067d844756b034.jpg',
-                    price:'656',
+                    price:'3',
                     num:'1',
                     rennitiao:'',
                     zaigou:'',
-                    xiaoshigou:'限时抢购'
+                    xiaoshigou:'限时抢购',
+                    zonjia:'3'
                 }
         ],
         isok:true,
         isos:true,
         nums:0,//用来频道什么时候到高亮
-        zonjia:0
+        zj:0,
+        title:'购物车'
         }
     },
     created(){
         //进来先判断他的nums是多少
+        this.nums = this.arr.length
+        // console.log(this.nums)
+            this.$store.state.title = this.title;
                 for(var i = 0;i<this.arr.length;i++){
-                        if(this.arr[i].show=true){
-                             this.zonjia += this.arr[i].num * this.arr[i].price
-                              this.nums++
+                        if(this.arr[i].show==true){
+                           this.zonjia  +=  this.arr[i].price * this.arr[i].num
+                               
                         }
                 }
+                 
     },
     methods:{
         //添加
             addnum(index){
-                    this.arr[index].num++
-                    if(this.arr[index].num>=99){
-                        this.arr[index].num = 99
+                  
+                    if(this.arr[index].num<99){
+                         this.arr[index].num++
+                         console.log(this.arr[index].num)
+                            this.arr[index].zonjia  =  this.arr[index].price *( this.arr[index].num)*1
+                      
+                        if(this.arr[index].show===true){
+                          this.zonjia += (this.arr[index].zonjia)*1
+                          console.log(this.zonjia )
                     }
-                    if(this.arr[index].show==true){
-                        this.zonjia += this.arr[index].price*1
+                    }else{
+                          this.arr[index].num = 99
+                          this.arr[index].zonjia  =  this.arr[index].price * this.arr[index].num*1
                     }
+                  
+                    
             },
             //减少数量
             reducenum(index){
@@ -180,8 +196,11 @@ export default {
                     if(this.arr[index].num<1){
                         this.arr[index].num = 1
                     }
+                     this.arr[index].zonjia  =  this.arr[index].price * this.arr[index].num
                     if(this.arr[index].show==true){  
-                            this.zonjia -= this.arr[index].price*1 
+                            // this.arr[index].zonjia -= this.arr[index].zonjia
+                            // this.zonjia -= this.arr[index].zonjia*1 
+                             this.zonjia -= this.arr[index].zonjia
                         }
                     
             },
@@ -192,38 +211,46 @@ export default {
             //点击当个高亮
              acticf(index){
                     this.arr[index].show = !this.arr[index].show 
-                    if(this.arr[index].show==false){
+                    if(this.nums == this.arr.length-1){
+                                this.isos=true
+                            }else{
+                                this.isos=false
+                            }
+                    if(this.arr[index].show===false){
                         this.nums--
-                         this.zonjia -=  this.arr[index].price*1
-                    }else{
-                        this.nums++
-                         this.zonjia  +=  this.arr[index].price*1
+                         this.zonjia -=  (this.arr[index].zonjia)*1
+                    }else if(this.arr[index].show===true){
+                          this.nums++
+                         this.zonjia  +=  (this.arr[index].zonjia)*1
                     }
-                    if(this.nums == this.arr.length){
-                        this.isos=true
-                    }else{
-                         this.isos=false
-                    }
+                    console.log(this.nums,this.arr.length)
+                            
                    
         },
             //全部高亮
             addactif(){
                 this.isos = !this.isos
+              
                 for(var i=0;i<this.arr.length;i++){
                         this.arr[i].show = this.isos
                         if(this.isos==true){
-                             this.zonjia +=  this.arr[i].price * this.arr[i].num
+                            //  this.zonjia +=  this.arr[i].price * this.arr[i].num
+                            this.zonjia +=this.arr[i].zonjia*1
+                               this.nums = this.arr.length
                         }else{
                             this.zonjia = 0
+                              this.nums = 0
                         }
                 }
-            }
+            },
+            
 
     },
+ 
     watch:{
            
               arr: {
-              handler(aa,bb) {//这个handler是固定的
+              handler() {//这个handler是固定的
             //   console.log(aa,bb)
                  for(let i in this.arr){
                     if(this.arr[i].num>=99){
@@ -232,8 +259,10 @@ export default {
                     }else if(this.arr[i].num<=1){
                         this.arr[i].num = 1
                     }
-                    // if(this.arr[i].num==1){
-                    //     this.zonjia = this.arr[i].price*1
+                    // if(this.arr[i].show===true){
+                    //       this.zonjia += (this.arr[i].zonjia)*1
+                    // }else if(this.arr[i].show===false){
+                    //       this.zonjia -= (this.arr[i].zonjia)*1
                     // }
                     
              }

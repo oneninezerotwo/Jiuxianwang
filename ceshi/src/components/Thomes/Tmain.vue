@@ -4,11 +4,11 @@
       <h3>掌上秒拍</h3>
       <div class="lastTime" remaintime="16648">
         <span>距结束</span>
-        <i class="hours">04</i>
+        <i class="hours" v-text="shi"></i>
         <em>:</em>
-        <i class="minutes">37</i>
+        <i class="minutes" v-text="feng"></i>
         <em>:</em>
-        <i class="seconds">28</i>
+        <i class="seconds" v-text="miao"></i>
       </div>
       <a id="__home_mp-more" href="https://m.jiuxian.com/m_v1/promote/qg?from=ad_03" class="more">
         <span>更多商品的你来抢！</span>
@@ -66,7 +66,57 @@ export default {
             })
            
             this.dats = data.killProList
-            //  console.log( this.dats)
+    },
+    methods:{
+        //补零
+         bu0(num) {
+			if(num < 10) {
+				return '0' + num;
+			} else {
+				return '' + num;
+			}
+		}
+
+    },
+       mounted(){
+            this.times = setInterval(()=>{
+                //先获取现在的时间
+                var now =new Date();
+                // console.log(now)
+                //获取年月日时
+                var year = now.getFullYear();
+                var month = now.getMonth() + 1;
+                var day = now.getDate();
+                var hour = now.getHours();
+                // console.log(year,month,day,hour)
+                //设置场次时间
+                var hour_num; //场次开始的  时刻
+                if(hour % 2 == 0) {
+                    hour_num = hour;
+                } else {
+                    hour_num = hour - 1;
+                }
+                var end_hour = hour_num + 2; //场次结束的 时刻
+                //拼接年月日
+                var endres = year + '-' + month + '-' + day + ' ';
+                endres += end_hour + ':00:00'; //2019-02-18 12:00:00
+                //得到结束的时间点
+                var endTime = new Date(endres);
+                //结束时间-当前时间  毫秒数→转化为秒数
+                var time = parseInt((endTime - now) / 1000);
+                //时分秒
+                var showHour = this.bu0(parseInt(time / 60 / 60));
+                var showMin = this.bu0(parseInt(time / 60) % 60);
+                var showSec = this.bu0(time % 60);
+
+                this.shi = showHour
+                this.feng = showMin
+                this.miao = showSec
+                }, 1000)
+          
+    },
+    destroyed(){
+        clearInterval(this.times)
     }
 }
 </script>

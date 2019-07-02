@@ -7,7 +7,6 @@
       <div class="swiper-container newList swiper-container-vertical" id="newList">
         <div
           class="swiper-wrapper"
-        
         >
              <van-swipe :autoplay="3000" vertical :height="120">
             <van-swipe-item v-for="(ab,index) in datas" :key="index" v-text="ab.title"></van-swipe-item>

@@ -147,13 +147,15 @@ export default {
   data() {
     return {
       value: "",
-      isok: true
+      isok: true,
+      title:'分类'
     }
   },
   created(){
          if(this.isok==false){
             this.focuss()
          }
+         this.$store.state.title = this.title;
   },
   methods: {
     isox() {
